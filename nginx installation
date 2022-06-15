@@ -1,0 +1,12 @@
+# This commands is use to install nginx
+dnf install https://dl.fedoraproject.org/pub/epel-release-latest- 8.noarch.rpm
+yum install nginx
+# verify if nginx is running
+nginx -v
+ps -ef | grep nginx 
+#Check your web server
+#If Nginx is installed successfully then the webserver should already be up and running:
+#We can check this by using the following command to make sure that the service is running:
+
+$ systemctl status nginx  | systemctl  start nginx
+# nginx listen to port 80
