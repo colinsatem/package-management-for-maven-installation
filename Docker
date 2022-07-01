@@ -1,0 +1,43 @@
+Install Docker on Red Hat Enterprise Linux AWS EC2
+#Step 1 – Check Linux version
+#There is a minimum kernel requirement for Docker. It must be at least version 3.10. To find out the kernel version, please use:
+
+uname -a
+or
+uname -r
+#Step 2 – Update yum
+#We should always update the operating system in an EC2 instance. To update the Red Hat Enterprise Linux, please use the following command.
+
+sudo yum update
+#Step 3 – Add Docker Repository
+#We need to point a Docker repository for our operating system. Please run the following command.
+
+sudo tee /etc/yum.repos.d/docker.repo <<-'EOF'
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/centos/7/
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+EOF
+#Notice the baseurl points to https://yum.dockerproject.org/repo/main/centos/7/
+
+#If we access the https://yum.dockerproject.org/repo/main/centos/, we get this page. Depending on our requirement, we may need to choose Docker binaries for either version of CentOS. For our case, we use version 7.
+#Step 4 – Install Docker Engine
+#Then, we install docker-engine. Please run the following command.
+
+sudo yum install docker-engine
+Step 5 – Enable Docker Service
+#Then, we need to enable to Docker service. At this point, Docker is installed but disabled. Please run the following command to allow the Docker service to run.
+
+sudo systemctl enable docker.service
+#Step 6 – Start Docker
+#Finally, we need to start the Docker server. Please use the following command.
+
+sudo systemctl start docker
+#Step 7- Verify Docker is Running
+#Once we started the Docker server, we can check to see if it is up and running. Please use the following command.
+
+ps -ef | grep docker
+
+#Then, we successfully installed Docker in a Red Hat Enterprise Linux AWS EC2.
