@@ -1,0 +1,48 @@
+Prerequisites
+To follow this tutorial, you will need the following:
+
+One Ubuntu 20.04 server set up by following the Ubuntu 20.04 initial server setup guide, including a sudo non-root user and a firewall.
+An account on Docker Hub if you wish to create your own images and push them to Docker Hub, as shown in Steps 7 and 8.
+#First, update your existing list of packages:
+
+sudo apt update
+
+Next, install a few prerequisite packages which let apt use packages over HTTPS:
+
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+Then add the GPG key for the official Docker repository to your system:
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+Add the Docker repository to APT sources:
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+This will also update our package database with the Docker packages from the newly added repo.
+
+Make sure you are about to install from the Docker repo instead of the default Ubuntu repo:
+
+apt-cache policy docker-ce
+You’ll see output like this, although the version number for Docker may be different:
+
+Output of apt-cache policy docker-ce
+docker-ce:
+  Installed: (none)
+  Candidate: 5:19.03.9~3-0~ubuntu-focal
+  Version table:
+     5:19.03.9~3-0~ubuntu-focal 500
+        500 https://download.docker.com/linux/ubuntu focal/stable amd64 Packages
+Notice that docker-ce is not installed, but the candidate for installation is from the Docker repository for Ubuntu 20.04 (focal).
+
+Finally, install Docker:
+
+sudo apt install docker-ce
+sudo systemctl status docker
+# command to add user to sudoersfile in linux
+echo "username  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/username
+#To view all available subcommands, type:
+docker
+#To view system-wide information about Docker, use:
+
+docker info
+To check whether you can access and download images from Docker Hub, type:
+
+docker run hello-world
